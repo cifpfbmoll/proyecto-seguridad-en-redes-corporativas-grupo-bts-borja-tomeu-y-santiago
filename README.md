@@ -90,4 +90,4 @@ nano /etc/apt/sources.list
 | **9. Actualización de Software** | Ajuste de `sources.list` para cumplir con las pautas de INCIBE. | ✅ |
 
 ## **Conclusiones**
-A lo largo del proceso de auditoría y configuración, hemos podido observar una evolución significativa en el nivel de seguridad del sistema. A partir de la auditoría inicial y las modificaciones aplicadas mediante el archivo `tailor.xml`, el sistema pasó de un cumplimiento del **44.30%** en la primera auditoría a un cumplimiento significativamente mayor en la auditoría final. Las configuraciones adicionales de GRUB y la gestión de usuarios han fortalecido aún más la seguridad del sistema.
+A lo largo del proceso de auditoría y configuración, hemos podido observar una evolución significativa en el nivel de seguridad del sistema. A partir de la auditoría inicial y las modificaciones aplicadas mediante el archivo `tailor.xml`, el sistema pasó de un cumplimiento del **44.30%** en la primera auditoría a un cumplimiento significativamente mayor en las auditoría finales, del **95%** . Las configuraciones adicionales de GRUB y la gestión de usuarios han fortalecido aún más la seguridad del sistema.
