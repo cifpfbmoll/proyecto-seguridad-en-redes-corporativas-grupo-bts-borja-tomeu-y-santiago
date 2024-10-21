@@ -83,7 +83,7 @@ nano /etc/apt/sources.list
 | **2. Desactivación del Cortafuegos** | Deshabilitar UFW antes de la auditoría. | ✅ |
 | **3. Primera Auditoría** | Realizar la auditoría inicial usando el perfil CIS Level 2. | ✅ |
 | **4. Modificación del Tailor File** | Deshabilitar UFW y GDM en el archivo tailor.xml. | ✅ |
-| **5. Reinicio del Sistema** | Reiniciar el sistema después de los cambios. | ✅ |
+| **5. Aplicación del Fix** | Practicar el fix del tailor.xml y reiniciar el sistema después de los cambios. | ✅ |
 | **6. Reauditoría del Sistema** | Realizar una auditoría después de aplicar las modificaciones. | ✅ |
 | **7. Configuración de Seguridad Adicional** | Configuración de GRUB, creación de contraseña y permisos de arranque. | ✅ |
 | **8. Creación de Usuarios** | Crear un nuevo usuario y asignarle privilegios sudo. | ✅ |
