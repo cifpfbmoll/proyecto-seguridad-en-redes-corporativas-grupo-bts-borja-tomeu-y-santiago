@@ -7,7 +7,7 @@
 El objetivo de esta auditoría es asegurar que un sistema Ubuntu cumpla con las pautas de seguridad del nivel **CIS Level 2 Server**. Para ello, seguiremos un proceso de auditoría que incluye generar un fichero de configuración `tailor.xml`, modificar ciertas configuraciones del sistema (como deshabilitar el firewall UFW y el GDM), y realizar auditorías antes y después de los cambios para medir la evolución de la seguridad.
 
 ## **Proceso de Auditoría**
-### **Previsión de Tareas**
+### 0. Previsión de Tareas
 
 | Tarea | Descripción | Completada |
 |-------|-------------|------------|
