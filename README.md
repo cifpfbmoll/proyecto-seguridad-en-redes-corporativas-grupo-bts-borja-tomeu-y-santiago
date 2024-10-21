@@ -1,6 +1,6 @@
 
 # Bitácora de Auditoría CIS Level 2 - Ubuntu Pro
-**LOS REGIS SE ENCARGAN DE AUDITAR TU SISTEMA**
+**¡LOS REGIS SE ENCARGAN DE AUDITAR TU SISTEMA!**
 ![Descripción de la imagen](https://github.com/cifpfbmoll/proyecto-seguridad-en-redes-corporativas-grupo-bts-borja-tomeu-y-santiago/blob/tcifre-capturas/6e202659389977a8370e4ec617d562159bc04ab5ae7219139ffdd1561663fa55_1.gif?raw=true)
 
 ## **Introducción**
