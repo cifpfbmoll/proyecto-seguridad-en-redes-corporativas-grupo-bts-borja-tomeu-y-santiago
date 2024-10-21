@@ -7,7 +7,19 @@
 El objetivo de esta auditoría es asegurar que un sistema Ubuntu cumpla con las pautas de seguridad del nivel **CIS Level 2 Server**. Para ello, seguiremos un proceso de auditoría que incluye generar un fichero de configuración `tailor.xml`, modificar ciertas configuraciones del sistema (como deshabilitar el firewall UFW y el GDM), y realizar auditorías antes y después de los cambios para medir la evolución de la seguridad.
 
 ## **Proceso de Auditoría**
+### **Previsión de Tareas**
 
+| Tarea | Descripción | Completada |
+|-------|-------------|------------|
+| **1. Instalación del Sistema** | Instalación de Ubuntu y activación de Ubuntu Pro. | ✅ |
+| **2. Desactivación del Cortafuegos** | Deshabilitar UFW antes de la auditoría. | ✅ |
+| **3. Primera Auditoría** | Realizar la auditoría inicial usando el perfil CIS Level 2. | ✅ |
+| **4. Modificación del Tailor File** | Deshabilitar UFW y GDM en el archivo tailor.xml. | ✅ |
+| **5. Aplicación del Fix** | Practicar el fix del tailor.xml y reiniciar el sistema después de los cambios. | ✅ |
+| **6. Reauditoría del Sistema** | Realizar una auditoría después de aplicar las modificaciones. | ✅ |
+| **7. Configuración de Seguridad Adicional** | Configuración de GRUB, creación de contraseña y permisos de arranque. | ✅ |
+| **8. Creación de Usuarios** | Crear un nuevo usuario y asignarle privilegios sudo. | ✅ |
+| **9. Actualización de Software** | Ajuste de `sources.list` para cumplir con las pautas de INCIBE. | ✅ |
 ### 1. **Instalación del Sistema**
 - Instalamos **Ubuntu** en una máquina virtual.
 - Activamos **Ubuntu Pro** desde la consola con el comando `pro attach`.
@@ -67,8 +79,8 @@ chmod 400 /boot/grub/grub.cfg
 ### 8. **Creación de Usuarios**
 Creamos un nuevo usuario llamado `admtcifre` y lo agregamos al grupo de **sudoers**:
 ```bash
-adduser admtcifre
-usermod -aG sudo admtcifre
+adduser admrgion
+usermod -aG sudo admrgion
 ```
 
 ### 9. **Actualización de Software**
@@ -76,20 +88,3 @@ Revisamos las actualizaciones de software y ajustamos las fuentes de paquetes en
 ```bash
 nano /etc/apt/sources.list
 ```
-
-## **Previsión de Tareas**
-
-| Tarea | Descripción | Completada |
-|-------|-------------|------------|
-| **1. Instalación del Sistema** | Instalación de Ubuntu y activación de Ubuntu Pro. | ✅ |
-| **2. Desactivación del Cortafuegos** | Deshabilitar UFW antes de la auditoría. | ✅ |
-| **3. Primera Auditoría** | Realizar la auditoría inicial usando el perfil CIS Level 2. | ✅ |
-| **4. Modificación del Tailor File** | Deshabilitar UFW y GDM en el archivo tailor.xml. | ✅ |
-| **5. Aplicación del Fix** | Practicar el fix del tailor.xml y reiniciar el sistema después de los cambios. | ✅ |
-| **6. Reauditoría del Sistema** | Realizar una auditoría después de aplicar las modificaciones. | ✅ |
-| **7. Configuración de Seguridad Adicional** | Configuración de GRUB, creación de contraseña y permisos de arranque. | ✅ |
-| **8. Creación de Usuarios** | Crear un nuevo usuario y asignarle privilegios sudo. | ✅ |
-| **9. Actualización de Software** | Ajuste de `sources.list` para cumplir con las pautas de INCIBE. | ✅ |
-
-## **Conclusiones**
-A lo largo del proceso de auditoría y configuración, hemos podido observar una evolución significativa en el nivel de seguridad del sistema. A partir de la auditoría inicial y las modificaciones aplicadas mediante el archivo `tailor.xml`, el sistema pasó de un cumplimiento del **44.30%** en la primera auditoría a un cumplimiento significativamente mayor en las auditoría finales, del **95%**. Las configuraciones adicionales de GRUB y la gestión de usuarios han fortalecido aún más la seguridad del sistema.
