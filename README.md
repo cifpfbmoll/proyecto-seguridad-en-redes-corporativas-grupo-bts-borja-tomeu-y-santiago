@@ -90,7 +90,7 @@ nano /etc/apt/sources.list
 ```
 _________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 # Bitácora de Copias de Seguridad con Duplicati - Ubuntu y Duplicati  
-**¡LOS REGIS SE ENCARGAN DE AUDITAR TU SISTEMA!**  
+**¡REGIGIGAS ASEGURA TUS ARCHIVOS CON DUPLICATI!**  
 ![Descripción de la imagen](https://i.redd.it/te5olfvbszgb1.gif?raw=true)
 
 ## 🛡Introducción
