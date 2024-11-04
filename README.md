@@ -93,8 +93,8 @@ ________________________________________________________________________________
 **¡REGIGIGAS ASEGURA TUS ARCHIVOS CON DUPLICATI!**  
 ![Descripción de la imagen](https://i.redd.it/te5olfvbszgb1.gif?raw=true)
 
-## 🛡Introducción
-En esta segunda fase, nos enfocaremos en implementar un sistema de copias de seguridad que garantice la integridad de los datos, manteniendo la configuración de seguridad de acuerdo con **CIS Level 2 Server**. Utilizaremos **Duplicati**, una herramienta de código abierto, para crear y gestionar las copias de seguridad en Google Drive.
+## **Introducción**
+En esta segunda fase, nos enfocaremos en implementar un sistema de copias de seguridad que garantice la integridad de los datos. Utilizaremos **Duplicati**, una herramienta de código abierto, para crear y gestionar las copias de seguridad en Google Drive.
 
 ---
 
@@ -103,10 +103,10 @@ En esta segunda fase, nos enfocaremos en implementar un sistema de copias de seg
 
 | Tarea                             | Descripción                                                                                                 | Completada |
 |-----------------------------------|-------------------------------------------------------------------------------------------------------------|------------|
-| **1. Instalación de Duplicati**   | Configurar el entorno y descargar Duplicati desde su sitio oficial.                                         | ✅         |
-| **2. Configuración de Duplicati** | Ajustar el software para implementar copias cifradas y no cifradas según las especificaciones de las carpetas Documentos e Imágenes. | ✅         |
-| **3. Prueba de Backup en Documentos**  | Crear una copia cifrada de la carpeta Documentos y probar la recuperación para asegurar la integridad de los datos. | ✅         |
-| **4. Prueba de Backup en Imágenes** | Configurar una copia no cifrada de la carpeta Imágenes y probar la restauración para verificar su funcionamiento. | ✅         |
+| **1. Instalación de Duplicati**   | Configurar el entorno y descargar Duplicati                                   | ✅         |
+| **2. Configuración de Duplicati** | Ajustar el software para implementar copias cifradas y no cifradas según las especificaciones | ✅         |
+| **3. Prueba de Backup en Documentos**  | Crear una copia cifrada de la carpeta Documentos y probar la recuperación | ✅         |
+| **4. Prueba de Backup en Imágenes** | Configurar una copia no cifrada de la carpeta Imágenes y probar la restauración  | ✅         |
 | **5. Evaluación de Resultados**     | Revisar la correcta ejecución y recuperación de las copias de seguridad creadas en Google Drive.             | ✅         |
 
 ---
@@ -163,10 +163,6 @@ Para la carpeta Imágenes configuramos un backup sin cifrado en Google Drive:
 ### 5. Evaluación y Resultados
 Verificamos que las copias de seguridad y las restauraciones de las carpetas Documentos e Imágenes funcionen correctamente:
 - Las copias se realizaron en Google Drive, cumpliendo con los criterios de cifrado y frecuencia de cada carpeta.
-- Se realizaron pruebas de restauración con resultados satisfactorios, lo que garantiza la disponibilidad y seguridad de los datos respaldados.
+- Llevamos a cabo las pruebas de restauración, resultaron exitosas, lo que garantiza la disponibilidad y seguridad de los datos respaldados.
 
 ---
-
-** Fin del Sprint 2**  
-¡Buen trabajo! Con las copias de seguridad en marcha, nuestro sistema está listo para manejar y recuperar datos de manera segura y efectiva.  
-¡Los REGIS al rescate!
