@@ -91,7 +91,7 @@ nano /etc/apt/sources.list
 
 # Bitácora de Copias de Seguridad con Duplicati - Ubuntu y Duplicati  
 **¡LOS REGIS SE ENCARGAN DE AUDITAR TU SISTEMA!**  
-![Descripción de la imagen](https://www.reddit.com/r/PokemonInfiniteFusion/comments/15m1p3y/we_need_the_regis_regigigas_want_to_see_hes_sons/#lightbox?raw=true)
+![Descripción de la imagen](https://i.redd.it/te5olfvbszgb1.gif?raw=true)
 
 ## 🛡Introducción
 En esta segunda fase, nos enfocaremos en implementar un sistema de copias de seguridad que garantice la integridad de los datos, manteniendo la configuración de seguridad de acuerdo con **CIS Level 2 Server**. Utilizaremos **Duplicati**, una herramienta de código abierto, para crear y gestionar las copias de seguridad en Google Drive.
