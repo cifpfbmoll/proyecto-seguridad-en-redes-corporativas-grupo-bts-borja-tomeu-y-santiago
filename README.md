@@ -89,7 +89,7 @@ Modificar `sources.list` para que cumplan con las directrices de **INCIBE**.
 nano /etc/apt/sources.list
 ```
 _________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-# Bitácora de Copias de Seguridad con Duplicati - Ubuntu y Duplicati  
+# Bitácora de Copias de Seguridad con Duplicati - Duplicati  
 **¡REGIGIGAS ASEGURA TUS ARCHIVOS CON DUPLICATI!**  
 ![Descripción de la imagen](https://i.redd.it/te5olfvbszgb1.gif?raw=true)
 
