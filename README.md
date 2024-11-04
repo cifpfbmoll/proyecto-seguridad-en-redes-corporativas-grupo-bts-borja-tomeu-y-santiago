@@ -89,9 +89,9 @@ Modificar `sources.list` para que cumplan con las directrices de **INCIBE**.
 nano /etc/apt/sources.list
 ```
 
-# Bitácora de Auditoría CIS Level 2 - Ubuntu Pro 🚀  
+# Bitácora de Copias de Seguridad con Duplicati - Ubuntu y Duplicati  
 **¡LOS REGIS SE ENCARGAN DE AUDITAR TU SISTEMA!**  
-![Descripción de la imagen](https://github.com/cifpfbmoll/proyecto-seguridad-en-redes-corporativas-grupo-bts-borja-tomeu-y-santiago/blob/tcifre-capturas/6e202659389977a8370e4ec617d562159bc04ab5ae7219139ffdd1561663fa55_1.gif?raw=true)
+![Descripción de la imagen](https://www.reddit.com/r/PokemonInfiniteFusion/comments/15m1p3y/we_need_the_regis_regigigas_want_to_see_hes_sons/#lightbox?raw=true)
 
 ## 🛡Introducción
 En esta segunda fase, nos enfocaremos en implementar un sistema de copias de seguridad que garantice la integridad de los datos, manteniendo la configuración de seguridad de acuerdo con **CIS Level 2 Server**. Utilizaremos **Duplicati**, una herramienta de código abierto, para crear y gestionar las copias de seguridad en Google Drive.
