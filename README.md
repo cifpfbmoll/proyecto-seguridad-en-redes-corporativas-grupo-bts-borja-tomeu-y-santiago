@@ -166,3 +166,27 @@ Verificamos que las copias de seguridad y las restauraciones de las carpetas Doc
 - Llevamos a cabo las pruebas de restauración, resultaron exitosas, lo que garantiza la disponibilidad y seguridad de los datos respaldados.
 
 ---
+_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+# Bitácora de Hardening de Apache - Ubuntu Pro y Kali Linux
+**¡LOS REGIS SE ENCARGAN DE ENDURECER TU APACHE!**
+![Descripción de la imagen]([https://github.com/cifpfbmoll/proyecto-seguridad-en-redes-corporativas-grupo-bts-borja-tomeu-y-santiago/blob/tcifre-capturas/6e202659389977a8370e4ec617d562159bc04ab5ae7219139ffdd1561663fa55_1.gif](https://cdn74.picsart.com/182821608000202.gif?)?raw=true)
+
+## **Introducción**  
+El hardening de Apache busca aumentar la seguridad del servidor web, reduciendo su exposición a ciberataques y cumpliendo con las mejores prácticas del sector. Este proceso se basa en la guía básica de hardening de Apache ofrecida por el INCIBE. En este apartado, configuraremos aspectos críticos de Apache, desde la instalación inicial hasta la protección contra ataques DoS y SQL Injection.
+
+---
+
+## **Proceso de Hardening**  
+### 0. Previsión de Tareas  
+
+| Tarea                                       | Descripción                                                                                     | Completada |
+|---------------------------------------------|-------------------------------------------------------------------------------------------------|------------|
+| **1. Instalación de Apache**                | Instalar y verificar el servidor web Apache.                                                   | ✅         |
+| **2. Configuraciones globales**             | Configurar parámetros de seguridad esenciales como usuarios, grupos y ocultación de versiones. | ✅         |
+| **3. Creación de Virtual Host**             | Configurar un VirtualHost personalizado con opciones seguras.                                  | ✅         |
+| **4. Ficheros `.htaccess` y Hotlinking**    | Configurar restricciones en directorios y proteger recursos frente a uso indebido.             | ✅         |
+| **5. Configuración HTTPS**                  | Implementar certificados SSL/TLS usando OpenSSL.                                               | ✅         |
+| **6. Instalación y Configuración de ModSecurity** | Proteger Apache con un WAF e implementar reglas OWASP y detección de SQL Injection.            | ✅         |
+| **7. Pruebas de Ataques y Validación**      | Simular ataques DoS y verificar la resistencia del servidor.                                   | ✅         |
+
+
