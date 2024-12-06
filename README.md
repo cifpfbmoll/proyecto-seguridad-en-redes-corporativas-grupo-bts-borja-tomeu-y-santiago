@@ -169,7 +169,7 @@ Verificamos que las copias de seguridad y las restauraciones de las carpetas Doc
 _________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 # Bitácora de Hardening de Apache - Ubuntu Pro y Kali Linux
 **¡LOS REGIS SE ENCARGAN DE ENDURECER TU APACHE!**
-![Descripción de la imagen]([https://github.com/cifpfbmoll/proyecto-seguridad-en-redes-corporativas-grupo-bts-borja-tomeu-y-santiago/blob/tcifre-capturas/6e202659389977a8370e4ec617d562159bc04ab5ae7219139ffdd1561663fa55_1.gif](https://cdn74.picsart.com/182821608000202.gif?)?raw=true)
+![Descripción de la imagen](https://cdn74.picsart.com/182821608000202.gif?to=min&r=640)
 
 ## **Introducción**  
 El hardening de Apache busca aumentar la seguridad del servidor web, reduciendo su exposición a ciberataques y cumpliendo con las mejores prácticas del sector. Este proceso se basa en la guía básica de hardening de Apache ofrecida por el INCIBE. En este apartado, configuraremos aspectos críticos de Apache, desde la instalación inicial hasta la protección contra ataques DoS y SQL Injection.
@@ -189,4 +189,76 @@ El hardening de Apache busca aumentar la seguridad del servidor web, reduciendo 
 | **6. Instalación y Configuración de ModSecurity** | Proteger Apache con un WAF e implementar reglas OWASP y detección de SQL Injection.            | ✅         |
 | **7. Pruebas de Ataques y Validación**      | Simular ataques DoS y verificar la resistencia del servidor.                                   | ✅         |
 
+---
 
+## 1. Instalación de Apache
+Instalamos y verificamos el servidor web Apache para asegurarnos de que esté funcionando correctamente.
+```bash
+sudo apt update
+sudo apt install apache2
+sudo systemctl status apache2
+```
+> **Nota:** Verificar que Apache esté activo y corriendo sin errores.
+
+---
+
+## 2. Configuraciones globales
+Configuramos parámetros de seguridad esenciales como la ocultación de la versión de Apache, los usuarios y grupos, entre otros ajustes para proteger el servidor.
+```bash
+sudo nano /etc/apache2/conf-available/security.conf
+sudo systemctl restart apache2
+```
+> **Nota:** Es importante ocultar información sensible, como la versión de Apache, para reducir el riesgo de ataques dirigidos.
+
+---
+
+## 3. Creación de Virtual Host
+Creamos y configuramos un VirtualHost para alojar nuestros sitios web de manera segura y personalizada, especificando las rutas y configuraciones necesarias.
+```bash
+sudo nano /etc/apache2/sites-available/mi_sitio.conf
+sudo a2ensite mi_sitio.conf
+sudo systemctl reload apache2
+```
+> **Nota:** Verificar que el sitio esté correctamente accesible a través de su dominio o IP.
+
+---
+
+## 4. Ficheros `.htaccess` y Hotlinking
+Configurar archivos `.htaccess` para restringir el acceso a ciertos directorios y proteger recursos como imágenes frente a hotlinking.
+```bash
+sudo nano /var/www/html/.htaccess
+sudo systemctl restart apache2
+```
+> **Nota:** Asegurarse de que la opción `AllowOverride` esté habilitada en la configuración de Apache para usar `.htaccess`.
+
+---
+
+## 5. Configuración HTTPS
+Implementamos un certificado SSL/TLS para habilitar HTTPS en el servidor web, utilizando OpenSSL o Certbot para la configuración.
+```bash
+sudo apt install certbot python3-certbot-apache
+sudo certbot --apache
+```
+> **Nota:** Verificar que el certificado SSL esté correctamente instalado usando `https://` en la URL.
+
+---
+
+## 6. Instalación y Configuración de ModSecurity
+Instalamos y configuramos ModSecurity como un firewall de aplicaciones web (WAF) para proteger Apache contra ataques como SQL Injection y XSS.
+```bash
+sudo apt install libapache2-mod-security2
+sudo systemctl restart apache2
+```
+> **Nota:** Asegúrese de activar las reglas de seguridad de OWASP para una mayor protección.
+
+---
+
+## 7. Pruebas de Ataques y Validación
+Simulamos ataques de Denegación de Servicio (DoS) para validar que el servidor pueda resistir intentos de sobrecarga y otros vectores de ataque comunes.
+```bash
+sudo msfconsole
+```
+> **Nota:** Verificar los registros de Apache para asegurar que no se haya producido una caída del servidor.
+
+---
+_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
