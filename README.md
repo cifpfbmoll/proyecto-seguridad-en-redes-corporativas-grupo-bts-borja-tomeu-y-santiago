@@ -165,7 +165,6 @@ Verificamos que las copias de seguridad y las restauraciones de las carpetas Doc
 - Las copias se realizaron en Google Drive, cumpliendo con los criterios de cifrado y frecuencia de cada carpeta.
 - Llevamos a cabo las pruebas de restauración, resultaron exitosas, lo que garantiza la disponibilidad y seguridad de los datos respaldados.
 
----
 _________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 # Bitácora de Hardening de Apache - Ubuntu Pro y Kali Linux
 **¡LOS REGIS SE ENCARGAN DE ENDURECER TU APACHE!**
@@ -260,4 +259,5 @@ sudo msfconsole
 ```
 > **Nota:** Verificar los registros de Apache para asegurar que no se haya producido una caída del servidor.
 
----
+_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+# Bitácora de Hardening SSH - Ubuntu Pro
