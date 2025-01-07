@@ -261,3 +261,201 @@ sudo msfconsole
 
 _________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 # Bitácora de Hardening SSH - Ubuntu Pro
+
+**¡LOS REGIS SE ENCARGAN DE ENDURECER TU SERVIDOR SSH!**
+![Descripción de la imagen](https://cdn74.picsart.com/182821608000202.gif?to=min&r=640)
+
+## **Introducción**  
+El hardening de SSH busca reforzar la seguridad en las conexiones remotas a través del protocolo Secure Shell, mitigando riesgos de accesos no autorizados y cumpliendo con las mejores prácticas del sector. Esta guía describe un conjunto de configuraciones esenciales para proteger OpenSSH Server, desde su instalación hasta la implementación de autenticación multifactor.
+
+---
+
+## **Proceso de Hardening**  
+### 0. Previsión de Tareas  
+
+| Tarea                                            | Descripción                                                                                      | Completada |
+|--------------------------------------------------|--------------------------------------------------------------------------------------------------|------------|
+| **1. Instalación de SSH Server**                | Instalar y verificar OpenSSH Server.                                                             | ✅         |
+| **2. Autenticación basada en clave pública**   | Configurar la autenticación segura mediante claves SSH.                                         | ✅         |
+| **3. Reasignación de puertos por defecto**      | Cambiar el puerto por defecto del servicio SSH.                                                  | ✅         |
+| **4. Límite de vinculación IP**                | Configurar el acceso solo a IPs específicas.                                                   | ✅         |
+| **5. Deshabilitar el usuario root**              | Prevenir accesos directos a la cuenta root.                                                      | ✅         |
+| **6. Limitar acceso a usuarios determinados**    | Restringir el acceso SSH a ciertos usuarios.                                                     | ✅         |
+| **7. Deshabilitar inicio de sesión por contraseña** | Obligar el uso de claves SSH para el inicio de sesión.                                          | ✅         |
+| **8. Deshabilitar contraseñas vacías**          | Rechazar inicios de sesión con contraseñas vacías.                                           | ✅         |
+| **9. Limitar intentos de autenticación fallida** | Prevenir ataques de fuerza bruta configurando límites de intentos fallidos.                      | ✅         |
+| **10. Limitar conexiones simultáneas**           | Reducir el número de conexiones SSH no autenticadas.                                            | ✅         |
+| **11. Habilitar un banner de advertencia**       | Configurar un mensaje previo al inicio de sesión.                                               | ✅         |
+| **12. Configurar intervalos de cierre de sesión**| Establecer tiempos de inactividad para cerrar sesiones automáticamente.                        | ✅         |
+| **13. Deshabilitar X11Forwarding**               | Prevenir la ejecución de aplicaciones gráficas remotas mediante SSH.                             | ✅         |
+| **14. Configurar CHROOT para usuarios**          | Restringir a los usuarios a sus directorios de inicio.                                           | ✅         |
+| **15. Configurar autenticación multifactor**     | Implementar doble factor de autenticación para máxima seguridad.                                | ✅         |
+
+---
+
+## 1. Instalación de SSH Server
+Instalamos OpenSSH Server y verificamos su correcto funcionamiento:
+```bash
+sudo apt update
+sudo apt install openssh-server
+sudo systemctl status sshd
+```
+> **Nota:** Es fundamental limitar los permisos del archivo `sshd_config` para evitar modificaciones no autorizadas.
+
+---
+
+## 2. Autenticación basada en clave pública
+La autenticación mediante claves SSH aumenta la seguridad al eliminar contraseñas.
+```bash
+ssh-keygen -t ed25519
+ssh-copy-id usuario@ip_servidor
+```
+> **Nota:** Las claves deben protegerse con una passphrase para mayor seguridad.
+
+---
+
+## 3. Reasignación de puertos por defecto
+Reconfiguramos el puerto 22 para mitigar ataques automatizados:
+```bash
+sudo nano /etc/ssh/sshd_config
+# Cambiar o añadir:
+Port +300
+sudo systemctl restart sshd
+```
+> **Nota:** No olvides abrir el nuevo puerto en el firewall.
+
+---
+
+## 4. Límite de vinculación IP
+Restricción de acceso solo a IPs específicas mediante la directiva ListenAddress:
+```bash
+ListenAddress 192.168.1.100
+```
+> **Nota:** Asegúrate de que la IP configurada es accesible.
+
+---
+
+## 5. Deshabilitar el usuario root
+Desactivamos el inicio de sesión directo para la cuenta root:
+```bash
+sudo nano /etc/ssh/sshd_config
+# Cambiar o añadir:
+PermitRootLogin no
+sudo systemctl restart sshd
+```
+> **Nota:** Usa cuentas normales con permisos de sudo para tareas administrativas.
+
+---
+
+## 6. Limitar acceso a usuarios determinados
+Definimos qué usuarios pueden conectarse vía SSH:
+```bash
+sudo nano /etc/ssh/sshd_config
+# Añadir:
+AllowUsers x.x.x., y.y.y.y
+```
+> **Nota:** Esta medida reduce la superficie de ataque.
+
+---
+
+## 7. Deshabilitar inicio de sesión por contraseña
+Una vez configuradas las claves SSH, desactivamos las contraseñas:
+```bash
+sudo nano /etc/ssh/sshd_config
+# Cambiar o añadir:
+PasswordAuthentication no
+```
+> **Nota:** Verifica que las claves funcionan antes de aplicar esta configuración.
+
+---
+
+## 8. Deshabilitar contraseñas vacías
+Bloqueamos cuentas con contraseñas vacías:
+```bash
+sudo nano /etc/ssh/sshd_config
+# Cambiar o añadir:
+PermitEmptyPasswords no
+```
+> **Nota:** Asegúrate de que todas las cuentas tienen contraseñas seguras.
+
+---
+
+## 9. Limitar intentos de autenticación fallida
+Configuramos límites para prevenir ataques de fuerza bruta:
+```bash
+sudo nano /etc/ssh/sshd_config
+# Añadir:
+MaxAuthTries 4
+```
+> **Nota:** Ajusta el límite según tus necesidades de seguridad.
+
+---
+
+## 10. Limitar conexiones simultáneas
+Reducimos el número de conexiones no autenticadas:
+```bash
+sudo nano /etc/ssh/sshd_config
+# Añadir:
+MaxStartups 3
+```
+> **Nota:** Esto disminuye la exposición a ataques masivos.
+
+---
+
+## 11. Habilitar un banner de advertencia
+Mostramos un mensaje de advertencia antes de la autenticación:
+```bash
+sudo nano /etc/issue
+# Edita el contenido del mensaje
+```
+> **Nota:** Configura el banner en `sshd_config` con la directiva `Banner`.
+
+---
+
+## 12. Configurar intervalos de cierre de sesión
+Establecemos tiempos de inactividad para cerrar sesiones:
+```bash
+sudo nano /etc/ssh/sshd_config
+# Añadir:
+ClientAliveInterval 300
+ClientAliveCountMax 0
+```
+> **Nota:** Esto previene accesos desatendidos.
+
+---
+
+## 13. Deshabilitar X11Forwarding
+Prevenimos la ejecución de aplicaciones gráficas remotas:
+```bash
+sudo nano /etc/ssh/sshd_config
+# Cambiar o añadir:
+X11Forwarding no
+```
+> **Nota:** Desactívalo si no usas aplicaciones gráficas remotas.
+
+---
+
+## 14. Configurar CHROOT para usuarios
+Restringimos a los usuarios a sus directorios personales:
+```bash
+sudo nano /etc/ssh/sshd_config
+# Añadir:
+Match User usuario
+ChrootDirectory /home/usuario
+ForceCommand internal-sftp
+AllowTcpForwarding no
+```
+> **Nota:** Configura adecuadamente los permisos del directorio.
+
+---
+
+## 15. Configurar autenticación multifactor
+Aumentamos la seguridad implementando doble factor de autenticación:
+```bash
+sudo apt install libpam-google-authenticator
+sudo systemctl restart sshd
+```
+> **Nota:** Usa aplicaciones como Google Authenticator para generar códigos.
+
+_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+# Bitácora de Escaneo de Vulnerabilidades - Ubuntu Pro
