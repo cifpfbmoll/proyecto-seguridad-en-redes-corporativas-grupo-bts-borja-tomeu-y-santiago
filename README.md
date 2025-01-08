@@ -263,7 +263,7 @@ ________________________________________________________________________________
 # Bitácora de Hardening SSH - Ubuntu Pro
 
 **¡LOS REGIS SE ENCARGAN DE ENDURECER TU SERVIDOR SSH!**
-![Descripción de la imagen](https://cdn74.picsart.com/182821608000202.gif?to=min&r=640)
+![Descripción de la imagen](https://media.tenor.com/kgtbAHhOuYcAAAAM/regidrago-regieleki.gif?to=min&r=640)
 
 ## **Introducción**  
 El hardening de SSH busca reforzar la seguridad en las conexiones remotas a través del protocolo Secure Shell, mitigando riesgos de accesos no autorizados y cumpliendo con las mejores prácticas del sector. Esta guía describe un conjunto de configuraciones esenciales para proteger OpenSSH Server, desde su instalación hasta la implementación de autenticación multifactor.
