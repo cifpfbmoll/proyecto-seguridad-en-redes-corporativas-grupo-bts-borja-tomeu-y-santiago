@@ -458,4 +458,87 @@ sudo systemctl restart sshd
 > **Nota:** Usa aplicaciones como Google Authenticator para generar códigos.
 
 _________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-# Bitácora de Escaneo de Vulnerabilidades - Ubuntu Pro
+# Bitácora de Escaneo de Vulnerabilidades - Metasploitable2  
+**¡LOS REGIS ESCANEAN LAS REDES CON NMAP!**  
+![Descripción de la imagen](https://i.gifer.com/DMt2.gif?to=min&r=640)
+
+## **Introducción**  
+Nmap es una herramienta de código abierto usada para analizar redes. Su principal objetivo es identificar equipos conectados, servicios activos y características de la red analizada. Posee el reconocimiento de muchos administradores de sistemas y profesionales de seguridad para verificar configuraciones de endurecimiento. Sin embargo, debe usarse de manera ética y con autorización, ya que escanear redes sin permiso puede incurrir en consecuencias legales.
+
+---
+
+## **Proceso de Actividades con Nmap**  
+### 0. Previsión de Tareas  
+
+| Tarea                                                  | Descripción                                                                                              | Completada |
+|--------------------------------------------------------|----------------------------------------------------------------------------------------------------------|------------|
+| **1. Descargar y configurar Metasploitable2**          | Descargar el servicio virtualizado Metasploitable2 e importarlo en VirtualBox.                          | ✅         |
+| **2. Realizar un escaneo SYN Scan**                    | Descubrir puertos abiertos en Metasploitable2 y el servidor de Ubuntu mediante escaneo SYN.              | ✅         |
+| **3. Realizar un escaneo UDP**                         | Detectar los principales puertos UDP abiertos en Metasploitable2.                                       | ✅         |
+| **4. Realizar un escaneo por script `vuln`**           | Automatizar la detección de vulnerabilidades conocidas en Metasploitable2 y el servidor de Ubuntu.       | ✅         |
+| **5. Realizar un escaneo agresivo**                    | Obtener información detallada sobre Metasploitable2 y el servidor de Ubuntu.                            | ✅         |
+| **6. Realizar un escaneo de descubrimiento en la red** | Identificar dispositivos conectados en la red doméstica.                                                | ✅         |
+
+---
+
+## **1. Descargar y configurar Metasploitable2**  
+Para realizar los escaneos de seguridad y vulnerabilidades, precisamos de una máquina virtual Kali Linux. Los parámetros de red en VirtualBox deben asignarse como **Adaptador Solo Anfitrión**. El servicio virtualizado Metasploitable2 debe montarse como partición a partir de una nueva máquina virtual y configurarse también en **Adaptador Solo Anfitrión**.
+
+---
+
+## **2. Realizar un escaneo SYN Scan**  
+Escaneo destinado a descubrir los puertos abiertos sin completar la comunicación por TCP (sin hacer el handshake completo).
+
+```bash
+nmap -sS 192.XXX.YYY.ZZZ 192.XXX.YYY.ZZZ
+```
+
+> **Nota:** Asegúrate de utilizar la IP correspondiente a Metasploitable2 y al servidor de Ubuntu.
+
+---
+
+## **3. Realizar un escaneo UDP**  
+Escaneo que, mediante el protocolo UDP (User Datagram Protocol), detecta puertos abiertos en el objetivo.
+
+```bash
+nmap -sU [ -top-ports [VALOR] ] 192.XXX.YYY.ZZZ
+```
+
+> **Nota:** Este escaneo puede ser más lento, pero es esencial para detectar servicios que utilizan UDP.
+
+---
+
+## **4. Realizar un escaneo por script `vuln`**  
+Escaneo mediante el script predefinido `vuln`. Utiliza el **Nmap Scripting Engine (NSE)** para automatizar la detección de vulnerabilidades conocidas.
+
+```bash
+nmap --script [nombre_del_script] 192.XXX.YYY.ZZZ
+```
+
+> **Nota:** Utiliza el script adecuado (`vuln`) para identificar vulnerabilidades en los servicios expuestos.
+
+---
+
+## **5. Realizar un escaneo agresivo**  
+Escaneo destinado a obtener información detallada sobre el objetivo: sistema operativo, versiones de servicios, ejecución de scripts NSE y traceroute.
+
+```bash
+nmap -A 192.XXX.YYY.ZZZ 192.XXX.YYY.ZZZ
+```
+
+> **Nota:** Este tipo de escaneo es más intrusivo y debe realizarse con autorización previa.
+
+---
+
+## **6. Realizar un escaneo de descubrimiento en la red**  
+Escaneo que identifica dispositivos conectados a la red sin realizar un análisis de puertos. Obtiene información sobre direcciones IP, MAC y nombres de host.
+
+```bash
+nmap -sn 192.XXX.YYY.0/ZZZ
+```
+
+> **Anotaciones:**  
+> - Si tu máquina virtual usa conexión NAT, puede ser necesario configurar redirección de puertos.  
+> - También puedes instalar Nmap en el equipo anfitrión para realizar pruebas sobre tu sistema personal.
+
+--- 
