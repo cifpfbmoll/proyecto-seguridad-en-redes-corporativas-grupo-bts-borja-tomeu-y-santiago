@@ -545,7 +545,7 @@ nmap -sn 192.XXX.YYY.0/ZZZ
 _________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 # Bitácora de Seguridad Perimetral con pfSense  
 **¡LOS REGIS CONFIGURAN TU FIREWALL!**  
-![Descripción de la imagen](https://i.gifer.com/DMt2.gif?to=min&r=640)
+![Descripción de la imagen](https://i.gifer.com/DMt2.gif](https://i.kym-cdn.com/photos/images/original/000/770/789/a3e.gif)](https://i.kym-cdn.com/photos/images/original/000/770/789/a3e.gif)?to=min&r=640)
 
 ## **Introducción**  
 pfSense es un firewall de código abierto utilizado para la seguridad perimetral en redes. Su funcionalidad permite el control del tráfico, filtrado de paquetes y configuración de reglas avanzadas para proteger la infraestructura de TI. En este sprint, implementaremos reglas esenciales para garantizar la seguridad de la red.
