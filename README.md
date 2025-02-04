@@ -1,7 +1,7 @@
 
 # Bitácora de Auditoría CIS Level 2 - Ubuntu Pro
 **¡LOS REGIS SE ENCARGAN DE AUDITAR TU SISTEMA!**
-![Descripción de la imagen]([https://github.com/cifpfbmoll/proyecto-seguridad-en-redes-corporativas-grupo-bts-borja-tomeu-y-santiago/blob/tcifre-capturas/6e202659389977a8370e4ec617d562159bc04ab5ae7219139ffdd1561663fa55_1.gif?raw=true)
+![Descripción de la imagen]([[https://github.com/cifpfbmoll/proyecto-seguridad-en-redes-corporativas-grupo-bts-borja-tomeu-y-santiago/blob/tcifre-capturas/6e202659389977a8370e4ec617d562159bc04ab5ae7219139ffdd1561663fa55_1.gif](https://i.imgur.com/vvacygT.gif)?raw=true)
 
 ## **Introducción**
 El objetivo de esta auditoría es asegurar que un sistema Ubuntu cumpla con las pautas de seguridad del nivel **CIS Level 2 Server**. Para ello, seguiremos un proceso de auditoría que incluye generar un fichero de configuración `tailor.xml`, modificar ciertas configuraciones del sistema (como deshabilitar el firewall UFW y el GDM), y realizar auditorías antes y después de los cambios para medir la evolución de la seguridad.
