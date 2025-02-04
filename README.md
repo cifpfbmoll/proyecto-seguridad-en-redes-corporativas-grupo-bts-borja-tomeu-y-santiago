@@ -542,3 +542,102 @@ nmap -sn 192.XXX.YYY.0/ZZZ
 > - También puedes instalar Nmap en el equipo anfitrión para realizar pruebas sobre tu sistema personal.
 
 --- 
+_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+# Bitácora de Seguridad Perimetral con pfSense  
+**¡LOS REGIS CONFIGURAN TU FIREWALL!**  
+![Descripción de la imagen](https://i.gifer.com/DMt2.gif?to=min&r=640)
+
+## **Introducción**  
+pfSense es un firewall de código abierto utilizado para la seguridad perimetral en redes. Su funcionalidad permite el control del tráfico, filtrado de paquetes y configuración de reglas avanzadas para proteger la infraestructura de TI. En este sprint, implementaremos reglas esenciales para garantizar la seguridad de la red.
+
+---
+
+## **Proceso de Configuración en pfSense**  
+### 0. Previsión de Tareas  
+
+| Tarea | Descripción | Completada |
+|---------------------------------|----------------------------------------------------------------------------|------------|
+| **1. Configurar reglas para que los empleados tengan acceso a internet** | Permitir el tráfico de salida desde la LAN de empleados a internet. | ✅ |
+| **2. Configurar reglas para el acceso al servidor web** | Permitir acceso solo por el puerto 443 y redirigir el tráfico del puerto 80 al 443. | ✅ |
+| **3. Configurar reglas para el acceso al servidor SSH** | Habilitar acceso solo desde el puerto configurado en el Sprint de Hardening SSH. | ✅ |
+| **4. Bloquear el tráfico directo entre servidores y empleados** | Crear reglas que impidan comunicación directa entre ambos segmentos de red. | ✅ |
+| **5. Implementar regla para evitar exfiltración de información** | Configurar regla de contención en caso de ciberataque. | ✅ |
+| **6. Implementar regla contra ataques DoS** | Bloquear direcciones IP sospechosas que generen tráfico malicioso. | ✅ |
+| **7. Implementar regla extra** | Personalizar una regla adicional que mejore la seguridad del entorno. | ✅ |
+
+---
+
+## **1. Configurar reglas para que los empleados tengan acceso a internet**  
+Se crea una regla en pfSense que permite el tráfico saliente desde la LAN de empleados (10.0.2.0/24) hacia cualquier destino en internet.
+
+```bash
+Action: Pass - Source: LAN_EMP - Destination: Any - Protocol: Any
+```
+> **Nota:** Es recomendable restringir el acceso a los puertos y servicios indispensables.
+
+---
+
+## **2. Configurar reglas para el acceso al servidor web**  
+Para restringir el acceso al servidor web solo por HTTPS y redirigir el tráfico HTTP:
+
+```bash
+Action: Pass - WAN - Destination: 10.0.3.XXX - Port: 443 - Protocol: TCP
+NAT - WAN - Redirect 80 -> 443
+```
+> **Nota:** Se garantiza el cifrado de las comunicaciones forzando el uso de HTTPS.
+
+---
+
+## **3. Configurar reglas para el acceso al servidor SSH**  
+Solo se permite el acceso SSH desde el puerto definido en el Sprint de Hardening SSH.
+
+```bash
+Pass - WAN - Destination: 10.0.3.XXX - Port: [PUERTO_CONFIGURADO_SSH] - Protocol: TCP
+```
+> **Nota:** Se puede configurar o consultar el puerto configurado en el Sprint 4 en /etc/ssh/sshd_config
+
+---
+
+## **4. Bloquear el tráfico directo entre servidores y empleados**  
+
+```bash
+Action: Block - Source: LAN_EMP - Destination: DMZ
+Action: Block - Source: DMZ - Destination: LAN_EMP
+```
+
+---
+
+## **5. Implementar regla para evitar exfiltración de información**  
+Esta regla bloquea todo el tráfico en caso de un ciberataque.
+
+```bash
+Action: Block - Source: Any - Destination: Any - Protocol: Any
+```
+> **Nota:** Se debe probar la regla y dejarla deshabilitada hasta su uso en caso de emergencia. Hay que aprovechar el tiempo de desconexión para identificar las incidencias y reucirlas.
+
+---
+
+## **6. Implementar regla contra ataques DoS o Denegación de Servicios**  
+Bloqueo de IP sospechosa en caso de detectar un ataque DoS.
+
+```bash
+Block - Source: [IP_DEL_ATACANTE] - Destination: 10.0.3.XX - Protocol: Any
+```
+> **Nota:** Podemos consultar los logs desde el panel de adminitración de pfSense desde nuestro navegador para rastrear anomalías.
+
+---
+
+## **7. Implementar regla extra**  
+Regla personalizada para fortalecer la seguridad. Ejemplo:
+· Reglas de VLAN para permitir tráfico entre VLANs
+· Reglas de lista negra
+· Redirección de DNS a tu firewall
+· Regla para limitar el número de conexiones de una misma IP
+· Habilitar pings externos desde ciertos sitios
+· Permitir tráfico según un horario
+
+> **Nota:** Se recomienda ajustar según las necesidades específicas del entorno.
+
+---
+
+
