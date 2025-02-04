@@ -541,7 +541,6 @@ nmap -sn 192.XXX.YYY.0/ZZZ
 > - Si tu máquina virtual usa conexión NAT, puede ser necesario configurar redirección de puertos.  
 > - También puedes instalar Nmap en el equipo anfitrión para realizar pruebas sobre tu sistema personal.
 
---- 
 _________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 # Bitácora de Seguridad Perimetral con pfSense  
 **¡LOS REGIS CONFIGURAN TU FIREWALL!**  
