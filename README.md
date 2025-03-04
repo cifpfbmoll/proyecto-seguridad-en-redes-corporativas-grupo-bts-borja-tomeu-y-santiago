@@ -544,7 +544,7 @@ nmap -sn 192.XXX.YYY.0/ZZZ
 _________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 # Bitácora de Seguridad Perimetral con pfSense  
 **¡LOS REGIS CONFIGURAN TU FIREWALL!**  
-![Descripción de la imagen](https://i.gifer.com/BmhC.gif?to=min&r=940)
+![Descripción de la imagen](https://i.gifer.com/BmhC.gif)
 
 ## **Introducción**  
 pfSense es un firewall de código abierto utilizado para la seguridad perimetral en redes. Su funcionalidad permite el control del tráfico, filtrado de paquetes y configuración de reglas avanzadas para proteger la infraestructura de TI. En este sprint, implementaremos reglas esenciales para garantizar la seguridad de la red.
@@ -810,15 +810,6 @@ El **Balancer Manager** nos permite gestionar el estado de los servidores backen
 ## 8. Verificación del balanceador de carga
 
 Para comprobar que el balanceador de carga funciona correctamente, accede a `balancer.sad.tomeucifre.com` desde un navegador. Las solicitudes deben distribuirse entre los tres servidores backend según el factor de carga.
-
----
-
-## Resumen Final del Sprint 8: Alta Disponibilidad
-
-- **Proxy inverso**: Apache se configuró correctamente como proxy inverso, redirigiendo solicitudes a los servidores backend.
-- **Balanceador de carga**: Apache fue configurado para distribuir las solicitudes entre tres servidores backend, utilizando un **factor de carga**.
-- **Balancer Manager**: Se habilitó para permitir la gestión y monitoreo de los servidores backend.
-- **Verificación**: Se realizaron pruebas para verificar que tanto el proxy inverso como el balanceo de carga funcionan correctamente.
 
 ---
 
