@@ -638,7 +638,7 @@ Regla personalizada para fortalecer la seguridad. Ejemplo:
 _________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 # Bitácora de Seguridad en Entornos Empresariales y Alta Disponibilidad  
 **¡LOS REGIS ORGANIZAN TU TRÁFICO DE RED!**  
-![Descripción de la imagen](https://i.gifer.com/DMt2.gif](https://i.kym-cdn.com/photos/images/original/001/114/875/7a8.gif)?to=min&r=640)
+![Descripción de la imagen](https://i.kym-cdn.com/photos/images/original/001/114/875/7a8.gif)
 
 ## Introducción
 Este Sprint tiene como objetivo configurar un servidor **proxy inverso** con Apache, redirigiendo las solicitudes hacia un servidor backend, y configurar un **balanceador de carga** para distribuir las solicitudes entre tres servidores backend. Además, se habilitaron módulos específicos de Apache para hacer funcionar tanto el proxy como el balanceador de carga.
@@ -666,25 +666,17 @@ Para crear los servidores backend, es necesario definir sus directorios de traba
 
 1. **Crear los directorios para los servidores backend**:
    ```bash
-   sudo mkdir -p /var/www/proxy_backend
-   sudo mkdir -p /var/www/balancer/node1
-   sudo mkdir -p /var/www/balancer/node2
-   sudo mkdir -p /var/www/balancer/node3
+   sudo mkdir -p /var/www/servidor_final
+   sudo mkdir -p /var/www/balancer/nodo_uno
+   sudo mkdir -p /var/www/balancer/nodo_dos
+   sudo mkdir -p /var/www/balancer/nodo_tres
    ```
 
 2. **Iniciar los servidores Python en cada directorio**:
    ```bash
-   # Servidor backend 1
-   cd /var/www/balancer/node1
-   nohup python3 -m http.server 4401 &
-
-   # Servidor backend 2
-   cd /var/www/balancer/node2
-   nohup python3 -m http.server 4402 &
-
-   # Servidor backend 3
-   cd /var/www/balancer/node3
-   nohup python3 -m http.server 4403 &
+   # Servidores Backend
+   cd /var/www/balancer/nodo_(...)
+   nohup python3 -m http.server (puerto_deseado)
    ```
 
 ---
@@ -711,21 +703,21 @@ Para que el proxy inverso funcione correctamente, debemos habilitar los módulos
 Con los módulos habilitados, configuramos Apache para que actúe como un proxy inverso, redirigiendo las solicitudes hacia los servidores backend. A continuación, el archivo de configuración para **Apache VirtualHost**:
 
 1. **Configurar el archivo de VirtualHost**:
-   Edita el archivo de configuración de Apache (`/etc/apache2/sites-available/000-default.conf`) y configura el proxy inverso.
+   Edita el archivo de configuración de Apache (`/etc/apache2/sites-available/(...).conf`) y configura el proxy inverso.
 
    ```apache
    <VirtualHost *:80>
-       ServerName proxy.sad.tomeucifre.com
+       ServerName proxy.tudominio.com
 
-       <Proxy "balancer://CifreBalancer">
-           BalancerMember http://127.0.0.1:4401
-           BalancerMember http://127.0.0.1:4402
-           BalancerMember http://127.0.0.1:4403 status=+H
+       <Proxy "balancer://ApellidoBalancer">
+           BalancerMember http://127.0.0.1:(puerto_deseado)
+           BalancerMember http://127.0.0.1:(puerto_deseado)
+           BalancerMember http://127.0.0.1:(puerto_deseado) status=+H
        </Proxy>
 
        ProxyPreserveHost On
-       ProxyPass "/" "balancer://CifreBalancer/"
-       ProxyPassReverse "/" "balancer://CifreBalancer/"
+       ProxyPass "/" "balancer://ApellidoBalancer/"
+       ProxyPassReverse "/" "balancer://ApellidoBalancer/"
    </VirtualHost>
    ```
 
@@ -768,17 +760,17 @@ Configuramos Apache como un balanceador de carga, para que distribuya las solici
 1. **Configurar el archivo de VirtualHost para el balanceo de carga**:
    ```apache
    <VirtualHost *:80>
-       ServerName balancer.sad.tomeucifre.com
+       ServerName balancer.tudominio.com
 
-       <Proxy "balancer://CifreBalancer">
-           BalancerMember http://127.0.0.1:4401 loadfactor=3
-           BalancerMember http://127.0.0.1:4402 loadfactor=1
-           BalancerMember http://127.0.0.1:4403 status=+H
+       <Proxy "balancer://ApellidoBalancer">
+           BalancerMember http://127.0.0.1:(puerto) loadfactor=3
+           BalancerMember http://127.0.0.1:(puerto) loadfactor=1
+           BalancerMember http://127.0.0.1:(puerto) status=+H
        </Proxy>
 
        ProxyPreserveHost On
-       ProxyPass "/" "balancer://CifreBalancer/"
-       ProxyPassReverse "/" "balancer://CifreBalancer/"
+       ProxyPass "/" "balancer://ApellidoBalancer/"
+       ProxyPassReverse "/" "balancer://ApellidoBalancer/"
 
        <Location "/balancer-manager">
            SetHandler balancer-manager
@@ -830,15 +822,13 @@ Para comprobar que el balanceador de carga funciona correctamente, accede a `bal
 
 ---
 
-**Próximos pasos**:  
+**Pasos Finales**:  
 1. Realizar pruebas de tolerancia a fallos para asegurar que el nodo "hot-standby" esté operando correctamente.
-2. Continuar monitoreando y ajustando el balanceo de carga según sea necesario.
+2. Continuar monitoreando y ajustando el balanceo de carga según convenga
 
 ---
 
 **Fin de la Bitácora.**
-
-> **Nota:** Se recomienda ajustar según las necesidades específicas del entorno.
 
 ---
 
