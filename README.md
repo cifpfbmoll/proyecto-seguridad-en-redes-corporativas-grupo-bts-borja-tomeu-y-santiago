@@ -635,6 +635,209 @@ Regla personalizada para fortalecer la seguridad. Ejemplo:
 · Habilitar pings externos desde ciertos sitios
 · Permitir tráfico según un horario
 
+_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+# Bitácora de Seguridad en Entornos Empresariales y Alta Disponibilidad  
+**¡LOS REGIS ORGANIZAN TU TRÁFICO DE RED!**  
+![Descripción de la imagen](https://i.gifer.com/DMt2.gif](https://i.kym-cdn.com/photos/images/original/001/114/875/7a8.gif)?to=min&r=640)
+
+## Introducción
+Este Sprint tiene como objetivo configurar un servidor **proxy inverso** con Apache, redirigiendo las solicitudes hacia un servidor backend, y configurar un **balanceador de carga** para distribuir las solicitudes entre tres servidores backend. Además, se habilitaron módulos específicos de Apache para hacer funcionar tanto el proxy como el balanceador de carga.
+
+---
+
+## Proceso de Actividades
+
+| Tarea                                                   | Descripción                                                                                             | Completada |
+|---------------------------------------------------------|---------------------------------------------------------------------------------------------------------|------------|
+| **1. Creación de directorios para servidores backend**  | Crear los directorios correspondientes a los servidores backend.                                        | ✅         |
+| **2. Activación de módulos de Apache para el proxy**    | Habilitar los módulos necesarios para que el proxy inverso funcione correctamente.                      | ✅         |
+| **3. Configuración del proxy inverso**                  | Configurar Apache como proxy inverso que redirija las solicitudes hacia un servidor backend.            | ✅         |
+| **4. Verificación del funcionamiento del proxy**        | Comprobar que el proxy inverso está funcionando correctamente.                                          | ✅         |
+| **5. Activación de módulos de Apache para balanceador** | Habilitar los módulos necesarios para que el balanceador de carga funcione correctamente.               | ✅         |
+| **6. Configuración del balanceador de carga**           | Configurar Apache como balanceador de carga, distribuyendo las solicitudes entre tres servidores backend. | ✅         |
+| **7. Activación del Balancer Manager**                  | Habilitar y configurar el **Balancer Manager** para gestionar los servidores backend.                   | ✅         |
+| **8. Verificación del balanceador de carga**             | Comprobar que el balanceador de carga distribuye las solicitudes correctamente entre los tres servidores backend. | ✅         |
+
+---
+
+## 1. Creación de directorios para servidores backend
+
+Para crear los servidores backend, es necesario definir sus directorios de trabajo. Estos serán utilizados para almacenar los archivos de los servidores backend y luego se ejecutará un servidor Python en cada uno de ellos.
+
+1. **Crear los directorios para los servidores backend**:
+   ```bash
+   sudo mkdir -p /var/www/proxy_backend
+   sudo mkdir -p /var/www/balancer/node1
+   sudo mkdir -p /var/www/balancer/node2
+   sudo mkdir -p /var/www/balancer/node3
+   ```
+
+2. **Iniciar los servidores Python en cada directorio**:
+   ```bash
+   # Servidor backend 1
+   cd /var/www/balancer/node1
+   nohup python3 -m http.server 4401 &
+
+   # Servidor backend 2
+   cd /var/www/balancer/node2
+   nohup python3 -m http.server 4402 &
+
+   # Servidor backend 3
+   cd /var/www/balancer/node3
+   nohup python3 -m http.server 4403 &
+   ```
+
+---
+
+## 2. Activación de módulos de Apache para el proxy
+
+Para que el proxy inverso funcione correctamente, debemos habilitar los módulos de proxy en Apache.
+
+1. **Activar los módulos de proxy**:
+   ```bash
+   sudo a2enmod proxy
+   sudo a2enmod proxy_http
+   ```
+
+2. **Reiniciar Apache para aplicar los cambios**:
+   ```bash
+   sudo systemctl restart apache2
+   ```
+
+---
+
+## 3. Configuración del proxy inverso
+
+Con los módulos habilitados, configuramos Apache para que actúe como un proxy inverso, redirigiendo las solicitudes hacia los servidores backend. A continuación, el archivo de configuración para **Apache VirtualHost**:
+
+1. **Configurar el archivo de VirtualHost**:
+   Edita el archivo de configuración de Apache (`/etc/apache2/sites-available/000-default.conf`) y configura el proxy inverso.
+
+   ```apache
+   <VirtualHost *:80>
+       ServerName proxy.sad.tomeucifre.com
+
+       <Proxy "balancer://CifreBalancer">
+           BalancerMember http://127.0.0.1:4401
+           BalancerMember http://127.0.0.1:4402
+           BalancerMember http://127.0.0.1:4403 status=+H
+       </Proxy>
+
+       ProxyPreserveHost On
+       ProxyPass "/" "balancer://CifreBalancer/"
+       ProxyPassReverse "/" "balancer://CifreBalancer/"
+   </VirtualHost>
+   ```
+
+2. **Reiniciar Apache**:
+   ```bash
+   sudo systemctl restart apache2
+   ```
+
+---
+
+## 4. Verificación del funcionamiento del proxy
+
+Para verificar que el proxy inverso está funcionando correctamente, se debe acceder desde un navegador a `proxy.sad.tomeucifre.com`. Si está configurado correctamente, las solicitudes se redirigirán al servidor backend adecuado.
+
+---
+
+## 5. Activación de módulos de Apache para balanceador
+
+Para configurar el balanceador de carga, es necesario activar algunos módulos adicionales en Apache.
+
+1. **Activar los módulos necesarios para el balanceador de carga**:
+   ```bash
+   sudo a2enmod proxy_balancer
+   sudo a2enmod lbmethod_byrequests
+   sudo a2enmod slotmem_shm
+   sudo a2enmod proxy_connect
+   ```
+
+2. **Reiniciar Apache para aplicar los cambios**:
+   ```bash
+   sudo systemctl restart apache2
+   ```
+
+---
+
+## 6. Configuración del balanceador de carga
+
+Configuramos Apache como un balanceador de carga, para que distribuya las solicitudes entre los tres servidores backend definidos. Para ello, editamos nuevamente el archivo de configuración.
+
+1. **Configurar el archivo de VirtualHost para el balanceo de carga**:
+   ```apache
+   <VirtualHost *:80>
+       ServerName balancer.sad.tomeucifre.com
+
+       <Proxy "balancer://CifreBalancer">
+           BalancerMember http://127.0.0.1:4401 loadfactor=3
+           BalancerMember http://127.0.0.1:4402 loadfactor=1
+           BalancerMember http://127.0.0.1:4403 status=+H
+       </Proxy>
+
+       ProxyPreserveHost On
+       ProxyPass "/" "balancer://CifreBalancer/"
+       ProxyPassReverse "/" "balancer://CifreBalancer/"
+
+       <Location "/balancer-manager">
+           SetHandler balancer-manager
+           Require all granted
+       </Location>
+   </VirtualHost>
+   ```
+
+2. **Reiniciar Apache para aplicar los cambios**:
+   ```bash
+   sudo systemctl restart apache2
+   ```
+
+---
+
+## 7. Activación del Balancer Manager
+
+El **Balancer Manager** nos permite gestionar el estado de los servidores backend en el balanceador de carga.
+
+1. **Habilitar el acceso al Balancer Manager**:
+   Asegúrate de que el siguiente bloque esté configurado en el archivo de configuración de Apache:
+
+   ```apache
+   <Location "/balancer-manager">
+       SetHandler balancer-manager
+       Require all granted
+   </Location>
+   ```
+
+2. **Reiniciar Apache para aplicar la configuración**:
+   ```bash
+   sudo systemctl restart apache2
+   ```
+
+---
+
+## 8. Verificación del balanceador de carga
+
+Para comprobar que el balanceador de carga funciona correctamente, accede a `balancer.sad.tomeucifre.com` desde un navegador. Las solicitudes deben distribuirse entre los tres servidores backend según el factor de carga.
+
+---
+
+## Resumen Final del Sprint 8: Alta Disponibilidad
+
+- **Proxy inverso**: Apache se configuró correctamente como proxy inverso, redirigiendo solicitudes a los servidores backend.
+- **Balanceador de carga**: Apache fue configurado para distribuir las solicitudes entre tres servidores backend, utilizando un **factor de carga**.
+- **Balancer Manager**: Se habilitó para permitir la gestión y monitoreo de los servidores backend.
+- **Verificación**: Se realizaron pruebas para verificar que tanto el proxy inverso como el balanceo de carga funcionan correctamente.
+
+---
+
+**Próximos pasos**:  
+1. Realizar pruebas de tolerancia a fallos para asegurar que el nodo "hot-standby" esté operando correctamente.
+2. Continuar monitoreando y ajustando el balanceo de carga según sea necesario.
+
+---
+
+**Fin de la Bitácora.**
+
 > **Nota:** Se recomienda ajustar según las necesidades específicas del entorno.
 
 ---
